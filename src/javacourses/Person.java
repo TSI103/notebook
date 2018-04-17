@@ -1,10 +1,24 @@
 package javacourses;
 
-public class Person extends RecordWithBirthday {
+import java.time.LocalDate;
+
+public class Person extends Record implements WithBirthday {
     private String firstName;
     private String lastName;
     private String phone;
     private String email;
+    private LocalDate birthday;
+
+
+    @Override
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    @Override
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -57,20 +71,23 @@ public class Person extends RecordWithBirthday {
         String lastName = Main.askString("Last Name: ");
         String phone = Main.askString("Phone: ");
         String email = Main.askString("Email: ");
+        LocalDate birthday = Main.askDate("Birthday: ");
 
         setFirstName(firstName);
         setLastName(lastName);
         setPhone(phone);
         setEmail(email);
-        super.askUserData();
+        setBirthday(birthday);
     }
 
     @Override
     public boolean contains(String part) {
-        return super.contains(part)
+        String strBirthday = Main.DATE_FORMATTER.format(getBirthday());
+        return strBirthday.contains(part)
                 || firstName.contains(part)
                 || lastName.contains(part)
                 || phone.contains(part)
                 || email.contains(part);
     }
+
 }

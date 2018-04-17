@@ -1,20 +1,33 @@
 package javacourses;
 
-public class Pet extends RecordWithBirthday {
+import java.time.LocalDate;
+
+public class Pet extends Record implements WithBirthday {
     private String name;
     private String species;
+    private LocalDate birthday;
 
+    @Override
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    @Override
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+    }
 
     @Override
     public void askUserData() {
         name = Main.askString("Name: ");
         species = Main.askString("Species: ");
-        super.askUserData();
+        birthday = Main.askDate("Birthday: ");
     }
 
     @Override
     public boolean contains(String part) {
-        return super.contains(part)
+        String strBirthday = Main.DATE_FORMATTER.format(getBirthday());
+        return strBirthday.contains(part)
                 || name.contains(part)
                 || species.contains(part);
     }

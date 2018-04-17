@@ -64,8 +64,8 @@ public class Main {
         LocalDate now = LocalDate.now();
         Month nowMonth = now.getMonth();
         for (Record r : recordsMap.values()) {
-            if (r instanceof RecordWithBirthday) {
-                RecordWithBirthday rwb = (RecordWithBirthday) r;
+            if (r instanceof WithBirthday) {
+                WithBirthday rwb = (WithBirthday) r;
                 LocalDate birthday = rwb.getBirthday();
                 Month birthdayMonth = birthday.getMonth();
                 if (nowMonth == birthdayMonth) {
