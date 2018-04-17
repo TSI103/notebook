@@ -1,6 +1,6 @@
 package javacourses;
 
-public class Person extends Record {
+public class Person extends RecordWithBirthday {
     private String firstName;
     private String lastName;
     private String phone;
@@ -40,12 +40,14 @@ public class Person extends Record {
 
     @Override
     public String toString() {
+        String strBirthday = Main.DATE_FORMATTER.format(getBirthday());
         return "Person{" +
                 "id=" + getId() +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
+                ", birthday='" + strBirthday + '\'' +
                 "}";
     }
 
@@ -60,11 +62,13 @@ public class Person extends Record {
         setLastName(lastName);
         setPhone(phone);
         setEmail(email);
+        super.askUserData();
     }
 
     @Override
     public boolean contains(String part) {
-        return firstName.contains(part)
+        return super.contains(part)
+                || firstName.contains(part)
                 || lastName.contains(part)
                 || phone.contains(part)
                 || email.contains(part);

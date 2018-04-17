@@ -2,6 +2,7 @@ package javacourses;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -50,8 +51,26 @@ public class Main {
                 case "show":
                     showById();
                     break;
+                case "birthdays":
+                    showBirthdays();
+                    break;
                 default:
                     System.out.println("Unknown command. Enter 'help' for all available options");
+            }
+        }
+    }
+
+    private static void showBirthdays() {
+        LocalDate now = LocalDate.now();
+        Month nowMonth = now.getMonth();
+        for (Record r : recordsMap.values()) {
+            if (r instanceof RecordWithBirthday) {
+                RecordWithBirthday rwb = (RecordWithBirthday) r;
+                LocalDate birthday = rwb.getBirthday();
+                Month birthdayMonth = birthday.getMonth();
+                if (nowMonth == birthdayMonth) {
+                    System.out.println(r);
+                }
             }
         }
     }
@@ -109,6 +128,9 @@ public class Main {
                     return;
                 case "reminder":
                     addRecord(new Reminder());
+                    return;
+                case "pet":
+                    addRecord(new Pet());
                     return;
                 case "help":
                     showHelpCreate();
